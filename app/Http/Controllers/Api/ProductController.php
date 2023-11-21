@@ -109,4 +109,20 @@ class ProductController extends Controller
         //return response
         return new ProductResource(true, 'Data Produk Berhasil Diubah!', $product);
     }
+
+    public function destroy($id)
+    {
+
+        //find post by ID
+        $product = Product::find($id);
+
+        //delete image
+        Storage::delete('public/products-img/'.basename($product->image));
+
+        //delete post
+        $product->delete();
+
+        //return response
+        return new ProductResource(true, 'Data Product Berhasil Dihapus!', null);
+    }
 }
