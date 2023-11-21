@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Resources\ProductResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProductController extends Controller
@@ -58,5 +59,54 @@ class ProductController extends Controller
 
         //return single product as a resource
         return new ProductResource(true, 'Detail Data Product!', $product);
+    }
+
+    public function update(Request $request, $id)
+    {
+        //define validation rules
+        $validator = Validator::make($request->all(), [
+            'name'     => 'required',
+            'desc'   => 'required',
+            'price'   => 'required',
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        //find post by ID
+        $product = Product::find($id);
+
+        //check if image is not empty
+        if ($request->hasFile('image')) {
+
+            //upload image
+            $image = $request->file('image');
+            $image->storeAs('public/products-img', $image->hashName());
+
+            //delete old image
+            Storage::delete('public/products-img/'.basename($product->image));
+
+            //update post with new image
+            $product->update([
+                'image'     => $image->hashName(),
+                'name'     => $request->name,
+                'desc'   => $request->desc,
+                'price'   => $request->price,
+            ]);
+
+        } else {
+
+            //update post without image
+            $product->update([
+                'name'     => $request->name,
+                'desc'   => $request->desc,
+                'price'   => $request->price,
+            ]);
+        }
+
+        //return response
+        return new ProductResource(true, 'Data Produk Berhasil Diubah!', $product);
     }
 }
