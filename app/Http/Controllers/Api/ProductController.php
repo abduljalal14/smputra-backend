@@ -14,10 +14,10 @@ class ProductController extends Controller
 {
     public function index()
     {
-        //get all posts
+        //get all products
         $products = Product::latest()->paginate(8);
 
-        //return collection of posts as a resource
+        //return collection of products as a resource
         return new ProductResource(true, 'List Data Posts', $products);
     }
 
@@ -75,7 +75,7 @@ class ProductController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        //find post by ID
+        //find prdouct by ID
         $product = Product::find($id);
 
         //check if image is not empty
@@ -88,7 +88,7 @@ class ProductController extends Controller
             //delete old image
             Storage::delete('public/products-img/'.basename($product->image));
 
-            //update post with new image
+            //update product with new image
             $product->update([
                 'image'     => $image->hashName(),
                 'name'     => $request->name,
@@ -98,7 +98,7 @@ class ProductController extends Controller
 
         } else {
 
-            //update post without image
+            //update product without image
             $product->update([
                 'name'     => $request->name,
                 'desc'   => $request->desc,
@@ -113,13 +113,13 @@ class ProductController extends Controller
     public function destroy($id)
     {
 
-        //find post by ID
+        //find product by ID
         $product = Product::find($id);
 
         //delete image
         Storage::delete('public/products-img/'.basename($product->image));
 
-        //delete post
+        //delete product
         $product->delete();
 
         //return response
