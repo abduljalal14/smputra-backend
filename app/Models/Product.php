@@ -11,6 +11,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'category_id',
         'image',
         'name',
         'desc',
@@ -22,5 +23,10 @@ class Product extends Model
         return Attribute::make(
             get: fn ($image) => asset('/storage/posts/' . $image),
         );
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
