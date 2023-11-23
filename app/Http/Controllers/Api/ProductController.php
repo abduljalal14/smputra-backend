@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,6 +26,7 @@ class ProductController extends Controller
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
+            'category_id' => 'required',
             'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name'     => 'required',
             'desc'   => 'required',
@@ -39,9 +41,10 @@ class ProductController extends Controller
         //upload image
         $image = $request->file('image');
         $image->storeAs('public/products-img', $image->hashName());
-
+        
         //create post
         $product = Product::create([
+            'category_id' => $request->category_id,
             'image'     => $image->hashName(),
             'name'     => $request->name,
             'desc'   => $request->desc,
@@ -65,6 +68,7 @@ class ProductController extends Controller
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
+            'category_id' => 'required',
             'name'     => 'required',
             'desc'   => 'required',
             'price'   => 'required',
@@ -90,6 +94,7 @@ class ProductController extends Controller
 
             //update product with new image
             $product->update([
+                'category_id' => $request->category_id,
                 'image'     => $image->hashName(),
                 'name'     => $request->name,
                 'desc'   => $request->desc,
@@ -100,6 +105,7 @@ class ProductController extends Controller
 
             //update product without image
             $product->update([
+                'category_id' => $request->category_id,
                 'name'     => $request->name,
                 'desc'   => $request->desc,
                 'price'   => $request->price,
