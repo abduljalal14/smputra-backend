@@ -10,5 +10,13 @@ use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
-    //
+    public function index()
+    {
+        //get all products
+        $categories = Category::latest()->paginate(8);
+
+        //return collection of categories as a resource
+        return new CategoryResource(true, 'List Data Categories', $categories);
+    }
+
 }

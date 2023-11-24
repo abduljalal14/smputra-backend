@@ -25,4 +25,5 @@ Route::get('/logout', [LoginController::class, 'logout']);
 // Route::get('/logout', 'Api\LoginController@logout');
 
 Route::apiResource('/products', App\Http\Controllers\Api\ProductController::class);
+Route::apiResource('/categories', App\Http\Controllers\Api\CategoryController::class);
 
