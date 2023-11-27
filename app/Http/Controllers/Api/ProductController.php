@@ -12,12 +12,24 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        //get all products
-        $products = Product::latest()->paginate(8);
+        $query = $request->input('query');
+        $categoryId = $request->input('category');
+        $products = Product::with('category');
 
-        //return collection of products as a resource
+        if ($categoryId) {
+            $products->whereHas('category', function ($query) use ($categoryId) {
+                $query->where('id', $categoryId);
+            });
+        }
+    
+        if ($query) {
+            $products->where('name', 'like', "%$query%");
+        }
+    
+        $products = $products->latest()->paginate(8);
+
         return new ProductResource(true, 'List Data Posts', $products);
     }
 
