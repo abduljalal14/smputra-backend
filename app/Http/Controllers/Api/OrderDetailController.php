@@ -10,43 +10,19 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderDetailController extends Controller
 {
-     /**
-     * index
-     *
-     * @return void
-     */
-    public function index()
+    public function show($id)
     {
-        //get all posts
-        $orders = OrderDetail::latest()->paginate(5);
+        $orderDetail = OrderDetail::find($id);
 
-        //return collection of posts as a resource
-        return new OrderDetailResource(true, 'List Data Detail Orders', $orders);
+        return new OrderDetailResource(true, 'Data Order Detail!', $orderDetail);
     }
 
-    public function store(Request $request)
+    public function destroy($id)
     {
-        //define validation rules
-        $validator = Validator::make($request->all(), [
-            'order_id'=> 'required',
-            'product_id'=> 'required',
-            'qty'=> 'required',
-            'subtotal'=> 'required',
-        ]);
+        $orderDetail = OrderDetail::find($id);
 
-        //check if validation fails
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+        $orderDetail->delete();
 
-        $order = OrderDetail::create([
-            'order_id'=> $request->order_id,
-            'product_id'=> $request->product_id,
-            'qty'=> $request->qty,
-            'subtotal'=> $request->subtotal,
-        ]);
-
-        //return response
-        return new OrderDetailResource(true, 'Data Detail Order Berhasil Ditambahkan!', $order);
+        return new OrderDetailResource(true, 'Data Order Berhasil dihapus!', $orderDetail);
     }
 }

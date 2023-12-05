@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('order_id');
             $table->foreignId('product_id');
             $table->integer('qty');
-            $table->bigInteger('subtotal');
             $table->timestamps();
         });
     }

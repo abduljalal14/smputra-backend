@@ -15,21 +15,21 @@ class ProductTableSeeder extends Seeder
     {
         Product::create([
             'category_id' => 1,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Roti Bolu',
             'desc'  => 'Roti Bolu dengan varian rasa',
             'price' => 50000
         ]);
         Product::create([
             'category_id' => 1,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Roti Kacang',
             'desc'  => 'Roti Bolu dengan varian rasa',
             'price' => 40000
         ]);
         Product::create([
             'category_id' => 1,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Brownies',
             'desc'  => 'Roti Bolu dengan varian rasa',
             'price' => 30000
@@ -37,21 +37,21 @@ class ProductTableSeeder extends Seeder
 
         Product::create([
             'category_id' => 2,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Baju Koko',
             'desc'  => 'Baju Koko Anak-anak',
             'price' => 60000
         ]);
         Product::create([
             'category_id' => 2,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Kerudung Pasmina',
             'desc'  => 'Kerudung pasmina warna biru',
             'price' => 60000
         ]);
         Product::create([
             'category_id' => 2,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Sarung Tursina',
             'desc'  => 'Sarung hitam untuk bapak-bapak',
             'price' => 70000
@@ -59,21 +59,21 @@ class ProductTableSeeder extends Seeder
 
         Product::create([
             'category_id' => 3,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Panci',
             'desc'  => 'Sarung hitam untuk bapak-bapak',
             'price' => 70000
         ]);
         Product::create([
             'category_id' => 3,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Wajan Teflon',
             'desc'  => 'Sarung hitam untuk bapak-bapak',
             'price' => 70000
         ]);
         Product::create([
             'category_id' => 3,
-            'image' => 'Km0GewL2wpp8wn3gacfxF7SG9OzZnIGDloZGjsKu.jpg',
+            'image' => 'CAIUfJktIRhgxfmPhssDEuYPgS2HNxQfNlAjGsVz.jpg',
             'name'     => 'Kompor Listrik',
             'desc'  => 'Sarung hitam untuk bapak-bapak',
             'price' => 70000

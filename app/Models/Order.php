@@ -16,7 +16,7 @@ class Order extends Model
         'shipping_method',
     ];
 
-    public function orderDetail()
+    public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
     }
