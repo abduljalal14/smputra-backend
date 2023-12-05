@@ -26,4 +26,8 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::apiResource('/products', App\Http\Controllers\Api\ProductController::class);
 Route::apiResource('/categories', App\Http\Controllers\Api\CategoryController::class);
+Route::apiResource('/orders', App\Http\Controllers\Api\OrderController::class);
+Route::apiResource('/order_details', App\Http\Controllers\Api\OrderDetailController::class);
+
+
 
