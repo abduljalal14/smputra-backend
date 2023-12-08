@@ -82,7 +82,7 @@ class ProductController extends Controller
             'category_id' => 'required',
             'name'     => 'required',
             'desc'   => 'required',
-            'price'   => 'required',
+            'price'   => 'required', 
         ]);
 
         //check if validation fails

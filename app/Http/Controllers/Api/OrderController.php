@@ -24,11 +24,31 @@ class OrderController extends Controller
         return new OrderResource(true, 'List Data Orders', $orders);
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
-        $order = Order::with('orderDetails')->find($id);
+        $query = $request->input('query');
+        $order = Order::with('orderDetails');
+    
+        if ($query) {
+            $order->where('order_id', 'like', "%$query%");
+        }
+    
+        $order = $order->find($id);
 
-        return new OrderResource(true, 'Detail Data Orders', $order);
+        return new OrderResource(true, 'Data Order', $order);
+
+        //return single order as a resource
+        return new OrderResource(true, 'Detail Data Order!', $order);
+    }
+    public function showByCustomerName($order_id)
+    {
+        $order = Order::with('orderDetails')
+                   ->whereHas('order_id', function ($query) use ($order_id) {
+                        $query->where('order_id', $order_id);
+                   })
+                   ->get();
+
+        return new OrderResource(true, 'Detail Data Order Berdasarkan Id', $order);
     }
 
     public function store(Request $request)
@@ -36,6 +56,7 @@ class OrderController extends Controller
         //define validation rules
         $validator = Validator::make($request->all(), [
             'customer_name'=> 'required',
+            'order_id'=> 'required',
             'customer_phone'=> 'required',
             'customer_address'=> 'required',
             'store_location'=> 'required',
@@ -49,6 +70,7 @@ class OrderController extends Controller
 
         $order = Order::create([
             'customer_name'=> $request->customer_name,
+            'order_id'=> $request->order_id,
             'customer_phone'=> $request->customer_phone,
             'customer_address'=> $request->customer_address,
             'store_location'=> $request->store_location,

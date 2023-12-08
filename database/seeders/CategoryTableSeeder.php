@@ -15,12 +15,23 @@ class CategoryTableSeeder extends Seeder
     {
         Category::create([
             'name'     => 'Cake & Bakery',
+            'image' => '0xCeuAUwZ85ZGmUQExoZX6HQEbJ3hXJXWuyCmvpk.jpg',
         ]);
         Category::create([
             'name'     => 'Fashion',
+            'image' => '0xCeuAUwZ85ZGmUQExoZX6HQEbJ3hXJXWuyCmvpk.jpg',
         ]);
         Category::create([
             'name'     => 'Gerabah',
+            'image' => '0xCeuAUwZ85ZGmUQExoZX6HQEbJ3hXJXWuyCmvpk.jpg',
+        ]);
+        Category::create([
+            'name'     => 'Elektronik',
+            'image' => '0xCeuAUwZ85ZGmUQExoZX6HQEbJ3hXJXWuyCmvpk.jpg',
+        ]);
+        Category::create([
+            'name'     => 'Food',
+            'image' => '0xCeuAUwZ85ZGmUQExoZX6HQEbJ3hXJXWuyCmvpk.jpg',
         ]);
     }
 }
