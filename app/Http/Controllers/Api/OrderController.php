@@ -24,31 +24,23 @@ class OrderController extends Controller
         return new OrderResource(true, 'List Data Orders', $orders);
     }
 
-    public function show($id, Request $request)
+    public function show($id)
     {
-        $query = $request->input('query');
-        $order = Order::with('orderDetails');
-    
-        if ($query) {
-            $order->where('order_id', 'like', "%$query%");
-        }
-    
-        $order = $order->find($id);
-
-        return new OrderResource(true, 'Data Order', $order);
+        $order = Order::with('orderDetails')->find($id);
 
         //return single order as a resource
         return new OrderResource(true, 'Detail Data Order!', $order);
     }
-    public function showByCustomerName($order_id)
-    {
-        $order = Order::with('orderDetails')
-                   ->whereHas('order_id', function ($query) use ($order_id) {
-                        $query->where('order_id', $order_id);
-                   })
-                   ->get();
 
-        return new OrderResource(true, 'Detail Data Order Berdasarkan Id', $order);
+    public function showById($order_id)
+    {
+        $order = Order::with('orderDetails')->where('order_id', $order_id)->first();
+
+        if (!$order) {
+            // Produk tidak ditemukan, kembalikan respons JSON yang sesuai
+            return response()->json(['error' => 'ID Order tidak ditemukan'], 404);
+        }
+        return response()->json(['order' => $order]);
     }
 
     public function store(Request $request)
