@@ -4,28 +4,38 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Http\Resources\CategoryResource;
+use App\Models\Banner;
+use App\Http\Resources\BannerResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 
-class CategoryController extends Controller
+class BannerController extends Controller
 {
     public function index()
     {
         //get all products
-        $categories = Category::latest()->paginate(30);
+        $banners = Banner::latest()->paginate(30);
 
-        //return collection of categories as a resource
-        return new CategoryResource(true, 'List Data Categories', $categories);
+        //return collection of banners as a resource
+        return new BannerResource(true, 'List Data banners', $banners);
     }
+
+    public function show($id)
+    {
+        //find product by ID
+        $banner = Banner::find($id);
+
+        //return single banner as a resource
+        return new BannerResource(true, 'Detail Data banner!', $banner);
+    }
+
 
     public function store(Request $request)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'name'     => 'required',
+            'link'     => 'required',
             'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -36,23 +46,23 @@ class CategoryController extends Controller
 
         //upload image
         $image = $request->file('image');
-        $image->storeAs('public/category-img', $image->hashName());
+        $image->storeAs('public/banner-img', $image->hashName());
         
         //create post
-        $category = Category::create([
-            'name'     => $request->name,
+        $banner = Banner::create([
+            'link'     => $request->link,
             'image'     =>  $image->hashName()
         ]);
 
         //return response
-        return new CategoryResource(true, 'Data Kategori Berhasil Ditambahkan!', $category);
+        return new BannerResource(true, 'Data Kategori Berhasil Ditambahkan!', $banner);
     }
 
     public function update(Request $request, $id)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'name'     => 'required', 
+            'link'     => 'required', 
             'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -62,45 +72,45 @@ class CategoryController extends Controller
         }
 
          //find prdouct by ID
-         $category = Category::find($id);
+         $banner = Banner::find($id);
          
         //check if image is not empty
         if ($request->hasFile('image')) {
 
             //upload image
             $image = $request->file('image');
-            $image->storeAs('public/category-img', $image->hashName());
+            $image->storeAs('public/banner-img', $image->hashName());
 
             //delete old image
-            Storage::delete('public/category-img/'.basename($category->image));
+            Storage::delete('public/banner-img/'.basename($banner->image));
 
             //update category with new image
-            $category->update([
+            $banner->update([
                 'image'     => $image->hashName(),
-                'name'     => $request->name,
+                'link'     => $request->link,
             ]);
 
         } else {
 
             //update category without image
-            $category->update([
-                'name'     => $request->name,
+            $banner->update([
+                'link'     => $request->link,
             ]);
         }
 
                //return response
-        return new CategoryResource(true, 'Data Kategori Berhasil Diubah!', $category);
+        return new BannerResource(true, 'Data Kategori Berhasil Diubah!', $banner);
     }
     public function destroy($id)
     {
         //find category by ID
-        $category = Category::find($id);
+        $banner = Banner::find($id);
 
         //delete image
-        Storage::delete('public/category-img/'.basename($category->image));
-        //delete category
-        $category->delete();
+        Storage::delete('public/banner-img/'.basename($banner->image));
+        //delete banner
+        $banner->delete();
         //return response
-        return new CategoryResource(true, 'Data Kategori Berhasil Dihapus!', null);
+        return new BannerResource(true, 'Data Kategori Berhasil Dihapus!', null);
     }
 }

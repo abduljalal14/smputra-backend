@@ -29,6 +29,7 @@ Route::apiResource('/categories', App\Http\Controllers\Api\CategoryController::c
 Route::apiResource('/orders', App\Http\Controllers\Api\OrderController::class);
 Route::get('/order/id/{order_id}', [App\Http\Controllers\Api\OrderController::class, 'showById']);
 Route::apiResource('/order_details', App\Http\Controllers\Api\OrderDetailController::class);
+Route::apiResource('/banners', App\Http\Controllers\Api\BannerController::class);
 
 
 
