@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function index()
     {
         //get all posts
-        $orders = Order::with('orderDetails')->latest()->paginate(10);
+        $orders = Order::with('orderDetails.product')->latest()->paginate(10);
 
         //return collection of posts as a resource
         return new OrderResource(true, 'List Data Orders', $orders);
@@ -26,7 +26,7 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::with('orderDetails')->find($id);
+        $order = Order::with('orderDetails.product')->find($id);
 
         //return single order as a resource
         return new OrderResource(true, 'Detail Data Order!', $order);
@@ -34,7 +34,7 @@ class OrderController extends Controller
 
     public function showById($order_id)
     {
-        $order = Order::with('orderDetails')->where('order_id', $order_id)->first();
+        $order = Order::with('orderDetails.product')->where('order_id', $order_id)->first();
 
         if (!$order) {
             // Produk tidak ditemukan, kembalikan respons JSON yang sesuai
@@ -43,6 +43,17 @@ class OrderController extends Controller
         return response()->json(['order' => $order]);
     }
 
+    // public function showById($order_id)
+    // {
+    //     $order = Order::with('orderDetails')->where('order_id', $order_id)->first();
+
+    //     if (!$order) {
+    //         // Produk tidak ditemukan, kembalikan respons JSON yang sesuai
+    //         return response()->json(['error' => 'ID Order tidak ditemukan'], 404);
+    //     }
+
+    //     return new OrderResource(true, 'Detail Data Order!', $order);
+    // }
     public function store(Request $request)
     {
         //define validation rules
