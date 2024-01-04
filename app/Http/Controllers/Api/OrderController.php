@@ -43,6 +43,18 @@ class OrderController extends Controller
         return response()->json(['order' => $order]);
     }
 
+    public function findByOrderIdAndId($order_id, $id)
+    {
+        $order = Order::with('orderDetails.product')->where('id', $id)->where('order_id', $order_id)->first();
+
+        if (!$order) {
+            // Pesanan tidak ditemukan, kembalikan respons JSON yang sesuai
+            return response()->json(['error' => 'ID Order tidak ditemukan'], 404);
+        }
+
+        return response()->json(['order' => $order]);
+    }
+
     // public function showById($order_id)
     // {
     //     $order = Order::with('orderDetails')->where('order_id', $order_id)->first();
